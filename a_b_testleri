@@ -1,0 +1,24 @@
+import pandas as pd
+from scipy import stats
+
+# A/B testi verilerini yükleyelim
+data = pd.read_csv('ab_test_data.csv')
+
+# A ve B gruplarının dönüşüm oranlarını karşılaştıralım
+group_a = data[data['Group'] == 'A']['Conversion Rate']
+group_b = data[data['Group'] == 'B']['Conversion Rate']
+
+# İstatistiksel test yapalım (t-testi)
+t_stat, p_value = stats.ttest_ind(group_a, group_b)
+
+print(f't-istatistiği: {t_stat}')
+print(f'p-değeri: {p_value}')
+
+# Sonuçları görselleştirelim
+import seaborn as sns
+plt.figure(figsize=(12, 6))
+sns.boxplot(x='Group', y='Conversion Rate', data=data)
+plt.title('A/B Testi Sonuçları')
+plt.xlabel('Grup')
+plt.ylabel('Dönüşüm Oranı')
+plt.show()
