@@ -1,0 +1,19 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Finansal verileri içe aktaralım
+data = pd.read_csv('financial_data.csv')
+
+# Finansal oranları hesaplayalım
+data['Gross Margin'] = (data['Revenue'] - data['Cost of Goods Sold']) / data['Revenue']
+data['Operating Margin'] = data['Operating Income'] / data['Revenue']
+
+# Oranları zamanla görselleştirelim
+plt.figure(figsize=(12, 6))
+plt.plot(data['Date'], data['Gross Margin'], label='Brüt Kar Marjı')
+plt.plot(data['Date'], data['Operating Margin'], label='Faaliyet Marjı')
+plt.title('Finansal Performans Göstergeleri')
+plt.xlabel('Tarih')
+plt.ylabel('Oran')
+plt.legend()
+plt.show()
