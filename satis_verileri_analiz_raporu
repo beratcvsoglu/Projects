@@ -1,0 +1,29 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Verileri içe aktaralım
+data = pd.read_csv('sales_data.csv')
+
+# Verilerin ilk birkaç satırını gözden geçirelim
+print(data.head())
+
+# Tarih sütununu datetime formatına dönüştürelim ve eksik verileri temizleyelim
+data['Date'] = pd.to_datetime(data['Date'])
+data = data.dropna()
+
+# Satış trendlerini zaman içinde inceleyelim
+plt.figure(figsize=(12, 6))
+sns.lineplot(x='Date', y='Sales', data=data)
+plt.title('Satış Trendleri Zamanla')
+plt.xlabel('Tarih')
+plt.ylabel('Satış')
+plt.show()
+
+# Bölgesel satış performansını analiz edelim
+plt.figure(figsize=(12, 6))
+sns.barplot(x='Region', y='Sales', data=data.groupby('Region').sum().reset_index())
+plt.title('Bölgesel Satış Performansı')
+plt.xlabel('Bölge')
+plt.ylabel('Toplam Satış')
+plt.show()
