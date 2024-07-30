@@ -1,0 +1,21 @@
+import pandas as pd
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+
+# Müşteri verilerini yükleyelim
+data = pd.read_csv('customer_data.csv')
+
+# Yıllık gelir ve harcama puanı özelliklerini seçelim
+X = data[['Annual Income (k$)', 'Spending Score (1-100)']]
+
+# K-means algoritmasını kullanarak kümeleri oluşturalım
+kmeans = KMeans(n_clusters=5, random_state=0).fit(X)
+data['Cluster'] = kmeans.labels_
+
+# Müşteri segmentlerini görselleştirelim
+plt.figure(figsize=(12, 6))
+plt.scatter(data['Annual Income (k$)'], data['Spending Score (1-100)'], c=data['Cluster'], cmap='viridis')
+plt.title('Müşteri Segmentasyonu')
+plt.xlabel('Yıllık Gelir (k$)')
+plt.ylabel('Harcamalar Puanı (1-100)')
+plt.show()
