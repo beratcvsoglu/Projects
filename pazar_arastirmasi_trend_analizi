@@ -1,0 +1,22 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Pazar verilerini yükleyelim
+data = pd.read_csv('market_data.csv')
+
+# Pazar büyüklüğünü zamanla analiz edelim
+plt.figure(figsize=(12, 6))
+plt.plot(data['Year'], data['Market Size'], marker='o')
+plt.title('Pazar Büyüklüğü Trendi')
+plt.xlabel('Yıl')
+plt.ylabel('Pazar Büyüklüğü (Milyon $)')
+plt.show()
+
+# Şirketlerin pazar paylarını inceleyelim
+plt.figure(figsize=(12, 6))
+plt.bar(data['Company'], data['Market Share'])
+plt.title('Şirketlerin Pazar Payı')
+plt.xlabel('Şirket')
+plt.ylabel('Pazar Payı (%)')
+plt.xticks(rotation=45)
+plt.show()
